@@ -14,7 +14,7 @@ struct SwiftSpin: View {
     
     @State private var colorIndex = 0
     @State private var rotation: Double = 0
-    @State private var text: String = "Welcom to SwiftUI"
+    @State private var text: String = "빙글뱅글빙글뱅글"
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct SwiftSpin: View {
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .rotationEffect(.degrees(rotation))
-                .animation(.easeInOut(duration: 1.0), value: rotation )
+                .animation(.easeInOut(duration: 3), value: rotation )
                 .foregroundColor(colors[colorIndex])
             Spacer()
             Divider()
