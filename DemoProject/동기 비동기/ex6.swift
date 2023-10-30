@@ -25,17 +25,17 @@ struct ex6: View {
     var body: some View {
         Button {
             Task {
-                await syncDouble(_: 5)
+                await syncDouble(_: 100)
             }
         } label: {
             Text("Ex6")
         }
     }
     
-    func syncDouble(_ x: Int) async -> Int {
-        let a = await asyncDouble(x)
-        return a
+    func syncDouble(_ x: Int) async -> Int { // asnyc 추가
+        let a = await asyncDouble(x) // let a 변수 추가
         print("\(a)")
+        return a // 위에서 만든 변수 a 리턴
     }
     
     func asyncDouble(_ x: Int) async -> Int {

@@ -17,17 +17,21 @@ struct _234: View {
     var body: some View {
         
         Text("빼기도 못하냐 ? ")
-            .font(.title)
+            .foregroundColor(.black)
+            .fontWeight(.ultraLight)
+            .font(.system(size: 35))
         VStack {
             VStack {
                 TextField("첫 번째 정수 입력", text: $num1)
                     .border(Color.gray)
                     .multilineTextAlignment(.center)
                     .frame(width: 250)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("두 번째 정수 입력", text: $num2)
                     .border(Color.gray)
                     .multilineTextAlignment(.center)
                     .frame(width: 250)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: buttonPressed,
                        label: {
                     Text("Send")
@@ -45,6 +49,7 @@ struct _234: View {
                     .border(Color.gray)
                     .multilineTextAlignment(.center)
                     .frame(width: 250)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .border(Color.gray)
             .padding(5)

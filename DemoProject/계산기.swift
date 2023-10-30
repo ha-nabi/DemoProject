@@ -46,15 +46,15 @@ enum ButtonType: String {
         case .multiple:
             return "X"
         case .devide:
-            return "$"
+            return "÷"
         case .percent:
             return "%"
         case .opposite:
-            return "/"
+            return "+/-"
         case .clear:
             return "C"
         }
-    }
+    } // 버튼타입 구성
     
     var backgroundColor: Color {
         switch self {
@@ -66,7 +66,7 @@ enum ButtonType: String {
         case .percent, .opposite, .clear:
             return Color.gray
         }
-    }
+    } // 버튼 색 구성
     
     var forgroundColor: Color {
         switch self {
@@ -76,15 +76,15 @@ enum ButtonType: String {
         case .percent, .opposite, .clear:
             return Color.black
         }
-    }
+    } // 폰트 색 설정
 }
-struct ContentView: View {
+struct calculator: View {
     
     @State private var totalNumber: String = "0"
     @State var tempNumber: Int = 0
     @State var operatorType: ButtonType = .clear
     
-    private let buttonData: [[ButtonType]] = [
+    private let buttonData: [[ButtonType]] = [     // 버튼 뷰
         [.clear, .opposite, .percent, .devide],
         [.seventh, .eighth, .nineth, .multiple],
         [.forth, .fifth, .sixth, .minus],
@@ -93,26 +93,25 @@ struct ContentView: View {
     ]
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color.black.ignoresSafeArea() // 배경색
                 
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text(totalNumber)
+                    Text(totalNumber) // 보이는 값
                         .padding()
                         .font(.system(size: 73))
                         .foregroundColor(.white)
                 }
                 
+                // 기능 구현
                 ForEach(buttonData, id: \.self) { line in
                     HStack {
                         ForEach(line, id: \.self) {
                             item in
                             Button {
-                               
-                                
-                                if totalNumber == "0" {
+                                if totalNumber == "0" { // 기본 디폴트 값은 0으로 시작
                                     
                                     if item == .clear {
                                         totalNumber = "0"
@@ -141,6 +140,10 @@ struct ContentView: View {
                                             tempNumber = Int(totalNumber) ?? 0
                                             operatorType = .minus
                                             totalNumber = "0"
+                                        } else if item == .devide {
+                                            tempNumber = Int(totalNumber) ?? 0
+                                            operatorType = .devide
+                                            totalNumber = "0"
                                         
                                         } else if item == .equal {
                                             
@@ -150,6 +153,8 @@ struct ContentView: View {
                                                 totalNumber = String((Int(totalNumber) ?? 0 ) * tempNumber)
                                                 } else if operatorType == .minus {
                                                 totalNumber = String(tempNumber - (Int(totalNumber) ?? 0 ))
+                                                } else if operatorType == .devide {
+                                                    totalNumber = String(tempNumber / (Int(totalNumber) ?? 0 ))
                                                 }
                                             }
                                             else {
@@ -158,7 +163,7 @@ struct ContentView: View {
                                     }
                             } label: {
                                 Text(item.buttonDisplayName)
-                                    .frame(width: item == .some(.zero) ? 160 : 80,
+                                    .frame(width: item == .some(.zero) ? 160 : 80,  // 0 크기 조절
                                            height: 80)
                                     .background(item.backgroundColor)
                                     .cornerRadius(40)
@@ -173,9 +178,10 @@ struct ContentView: View {
     }
 }
 #Preview {
-    ContentView()
+    calculator()
 }
 
 
-
+// 개선해야할 부분 : 나누기 크기 조절 , 0 위치 왼쪽 정렬
+// 숫자 클릭 후 연산 기호 눌렀을 때 기존의 숫자가 어떻게 남아있어야 할까?
 
